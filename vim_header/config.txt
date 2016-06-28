@@ -1,6 +1,6 @@
 " C Files Header
 autocmd bufnewfile *.c so /home/$USER/.vim/templates/c_header.txt
-autocmd bufnewfile *.c exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%")
+autocmd bufnewfile *.c exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%:t")
 autocmd bufnewfile *.c exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " .strftime("%c")
 autocmd bufnewfile *.c exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " "$USER"
 autocmd Bufwritepre,filewritepre *.c execute "normal ma"
@@ -8,7 +8,7 @@ autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Last Modified :.*/s/Last
 autocmd bufwritepost,filewritepost *.c execute "normal `a"
 
 autocmd bufnewfile *.h so /home/$USER/.vim/templates/c_header.txt
-autocmd bufnewfile *.h exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%")
+autocmd bufnewfile *.h exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%:t")
 autocmd bufnewfile *.h exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " .strftime("%c")
 autocmd Bufwritepre,filewritepre *.h execute "normal ma"
 autocmd Bufwritepre,filewritepre *.h exe "1," . 10 . "g/Last Modified :.*/s/Last Modified :.*/Last Modified : " .strftime("%c")
@@ -17,14 +17,14 @@ autocmd bufwritepost,filewritepost *.h execute "normal `a"
 
 " C++ Files Header
 autocmd bufnewfile *.cpp so /home/$USER/.vim/templates/c_header.txt
-autocmd bufnewfile *.cpp exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%")
+autocmd bufnewfile *.cpp exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%:t")
 autocmd bufnewfile *.cpp exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " .strftime("%c")
 autocmd Bufwritepre,filewritepre *.cpp execute "normal ma"
 autocmd Bufwritepre,filewritepre *.cpp exe "1," . 10 . "g/Last Modified :.*/s/Last Modified :.*/Last Modified : " .strftime("%c")
 autocmd bufwritepost,filewritepost *.cpp execute "normal `a"
 
 autocmd bufnewfile *.hh so /home/$USER/.vim/templates/c_header.txt
-autocmd bufnewfile *.hh exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%")
+autocmd bufnewfile *.hh exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%:t")
 autocmd bufnewfile *.hh exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " .strftime("%c")
 autocmd Bufwritepre,filewritepre *.hh execute "normal ma"
 autocmd Bufwritepre,filewritepre *.hh exe "1," . 10 . "g/Last Modified :.*/s/Last Modified :.*/Last Modified : " .strftime("%c")
