@@ -1,0 +1,138 @@
+#!/bin/bash
+
+###
+###		Some Defines
+###
+
+name='scriptal'
+alldash='--------------------------------------------------------'
+
+###
+###		Functions declarations
+###
+
+function f_info
+{
+	if [ $# -eq 1 ]
+	then
+		echo -ne "$alldash
+		Version : 0.1
+		Last Update : 14 January 2016
+		Made By : Alexandre LUU
+		Tested on : \n"
+	echo $alldash
+	elif [ $# -eq 2 ]
+	then
+		case $2 in
+			"StartPack")
+			echo -ne "Some starting applications\n\t*Vim\n\t*Git\n\t*git flow\n\t\n\t*gitk\n\t*Terminator\n\t*i3\n"
+			;;
+			"reviewboard")
+			echo "Install ReviewBoard and dependency"
+			echo -e "	*libapache2-mod-wsgi\n\t*libcache-memcached-perl\n\t*memcached\n\t*patch\n\t*python-dev\n\t*python-ldap\n\t*python-setuptools\n\t*subversion\n\t*python-svn\n\t*python-subvertpy\n\t*ReviewBoard\n\t*mysql-python\n\t*nose\n\t*Sphinx"
+			;;
+			*)
+			echo "--help or -help for more help"
+			;;
+		esac
+	fi
+}
+
+function	f_StartApps
+{
+	echo "$alldash
+	Update and/or Install the Start Pack Applications
+$alldash"
+	if [ $# -eq 1 ] && [ $1 == "-no-update" ]
+	then
+	    apt-get install vim git terminator i3 git-flow gitk make sudo curl
+            sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	else
+	    apt-get update &&  apt-get install vim git terminator i3 git-flow gitk make sudo curl
+            sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	fi
+	echo "$alldash
+	Done
+$alldash"
+        cp $PWD/config/.vimrc ~/
+        cp $PWD/config/.zshrc ~/
+        git clone https://github.com/oskarkrawczyk/honukai-iterm-zsh.git
+        cp $PWD/honukai-iterm-zsh/honukai.zsh-theme ~/.oh-my-zsh/themes
+        rm -rf $PWD/honukai-iterm-zsh
+        chsh -s $(which zsh)
+        echo "Config updated"
+}
+
+function	f_reviewboard
+{
+	echo "$alldash
+	Update and/or Install Reviewboard and dependency
+$alldash"
+
+	if [ $# -eq 1 ] && [ $1 == "-no-update" ]
+	then
+	    apt-get install libapache2-mod-wsgi libcache-memcached-perl memcached patch python-dev python-ldap python-setuptools subversion python-svn python-subvertpy
+	else
+	    apt-get update &&  apt-get install libapache2-mod-wsgi libcache-memcached-perl memcached patch python-dev python-ldap python-setuptools subversion python-svn python-subvertpy
+	fi
+	echo "$alldash
+	Installing ReviewBoard && Database
+$alldash"
+	easy_install ReviewBoard
+	easy_install mysql-python
+	easy_install nose Sphinx
+	echo "$alldash
+	Done
+$alldash"
+}
+
+function	f_help
+{
+	echo -ne "$alldash\n\t\tHelp Section\n$alldash\n"
+	echo "--info / -info [name]		Get some informations"
+	echo "-install [name] [-no-update]	To install the name or package"
+	echo "	List of [name] available:"
+	echo "	*reviewboard"
+	echo "	*StartPack"
+	echo "	-no-update		To not update"
+	echo "--help / -help			Display Help and exit"
+	echo -ne "$alldash\n\t\tEnd Help Section\n$alldash\n"
+}
+
+
+###
+###		Execution
+###
+
+
+if [ $# -eq 0 ]
+then
+	echo "--help or -help for information"
+else
+	if [ $# -gt 1 ] && [ $1 == "-install" ]
+	then
+	    case $2 in 
+		    "reviewboard")
+		    f_reviewboard $3
+		    ;;
+		    "StartPack")
+		    f_StartApps $3
+		    ;;
+		    *)
+		    echo "A application name is required"
+		    ;;
+	    esac
+	elif [ $# -gt 0 ] && [ $1 == "-info" ]
+	then
+		f_info $1 $2
+	elif [ $# -gt 0 ] && [ $1 == "--info" ]
+	then
+		f_info $1 $2
+	elif [ $# -eq 1 ] && [ $1 == "-help" ]
+	then
+		f_help
+	elif [ $# -eq 1 ] && [ $1 == "--help" ]
+	then
+		f_help
+	fi
+fi
